@@ -1,0 +1,10 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+demo_data/
+*.heap
+*.idx
+catalog.json
+.venv/
+.idea/
+.vscode/
