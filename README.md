@@ -24,13 +24,14 @@
 | [docs/02-architecture-and-interfaces.md](docs/02-architecture-and-interfaces.md) | 架构、磁盘结构、跨模块接口与语义 |
 | [docs/03-team-plan.md](docs/03-team-plan.md) | 三人任务、依赖、集成节奏、协作规则 |
 | [docs/04-testing-and-delivery.md](docs/04-testing-and-delivery.md) | 测试矩阵、演示脚本、最终提交清单 |
+| [docs/05-upload-and-pr-guide.md](docs/05-upload-and-pr-guide.md) | 三人上传目录、权限、Git 命令、PR 和验收细则 |
 | [dbms/types.py](dbms/types.py) | 已固定的 AST、Plan、行、结果和异常类型 |
 | [dbms/contracts.py](dbms/contracts.py) | 存储公开方法与前端/执行函数的类型签名 |
 | [CONTRIBUTING.md](CONTRIBUTING.md) | GitHub 目录分工、分支、上传与 PR 步骤 |
 
 ## 仓库目录和上传位置
 
-一个 GitHub 仓库即可；三人分别在自己的分支提交，再合并到 `main`。A 上传 `dbms/storage/` 与对应单元测试，B 上传 `dbms/frontend/`、`dbms/__main__.py` 与对应单元测试，C 上传 `dbms/executor/`、集成测试和 `examples/demo.sql`。共享接口与设计文档已在仓库初始版本中，后续改动应通过 PR 审阅。完整操作见 [CONTRIBUTING.md](CONTRIBUTING.md)。
+一个 GitHub 仓库即可；三人分别在自己的分支提交，再合并到 `main`。A 上传 `dbms/storage/` 与对应单元测试，B 上传 `dbms/frontend/`、`dbms/__main__.py` 与对应单元测试，C 上传 `dbms/executor/`、集成测试和 `examples/demo.sql`。共享接口与设计文档已在仓库初始版本中，后续改动应通过 PR 审阅。具体命令和验收要求见[组员上传细则](docs/05-upload-and-pr-guide.md)。
 
 ## 现在可以开始的工作
 

@@ -2,7 +2,7 @@
 
 本项目使用**一个 GitHub 仓库**，按模块目录分工，不需要为三个人分别创建仓库。以 `main` 为稳定版本；每个人在自己的分支开发，测试通过后发起 Pull Request（PR）合并到 `main`。初始文档与共享接口已经提交，后续直接从最新 `main` 开始。
 
-若三人都要直接向同一仓库推送分支，仓库所有者需先在 GitHub 的 **Settings → Collaborators** 邀请另外两位成员，成员接受邀请后才有写入权限。当前没有两位成员的 GitHub 用户名，因此邀请尚未发送。也可以不邀请：成员各自 Fork 此公开仓库，在自己的 Fork 中推送分支，再向本仓库发起 PR；此时下文命令中的 `origin` 指向各自的 Fork。
+若三人都要直接向同一仓库推送分支，仓库所有者需先在 GitHub 的 **Settings → Collaborators** 邀请另外两位成员，成员接受邀请后才有写入权限。也可以不邀请：成员各自 Fork 此公开仓库，在自己的 Fork 中推送分支，再向本仓库发起 PR；此时下文命令中的 `origin` 指向各自的 Fork。完整步骤和上传验收要求见[组员上传细则](docs/05-upload-and-pr-guide.md)。
 
 | 成员 | 主要上传位置 | 对外导出 |
 | --- | --- | --- |
@@ -15,7 +15,7 @@
 ## 首次获取项目
 
 ```powershell
-git clone <仓库地址>
+git clone https://github.com/gyhbwjhnb/database-system.git
 cd database-system
 python -c "import dbms.types, dbms.contracts; print('接口可导入')"
 ```
