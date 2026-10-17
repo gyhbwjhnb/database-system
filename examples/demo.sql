@@ -1,0 +1,12 @@
+CREATE TABLE students (id INT, name TEXT, score INT);
+INSERT INTO students VALUES (1, 'Alice', 90);
+INSERT INTO students VALUES (2, 'Bob', 60);
+INSERT INTO students VALUES (3, 'Cara', 90);
+SELECT id, name FROM students WHERE score = 90;
+CREATE INDEX idx_students_score ON students (score);
+SELECT id, name FROM students WHERE score = 90;
+UPDATE students SET score = 80 WHERE score = 90;
+SELECT id, name FROM students WHERE score = 90;
+SELECT id, name FROM students WHERE score = 80;
+DELETE FROM students WHERE score = 80;
+SELECT * FROM students;
