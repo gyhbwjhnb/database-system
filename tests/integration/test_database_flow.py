@@ -117,6 +117,37 @@ class DatabaseFlowTests(unittest.TestCase):
             finally:
                 storage.close()
 
+    def test_demo_script_runs_in_fresh_database(self) -> None:
+        if not (ROOT / "dbms" / "__main__.py").is_file():
+            self.skipTest("B CLI has not been integrated yet")
+        with tempfile.TemporaryDirectory() as directory:
+            db_dir = Path(directory) / "db"
+            completed = subprocess.run(
+                [
+                    sys.executable,
+                    "-m",
+                    "dbms",
+                    "--db",
+                    str(db_dir),
+                    "--file",
+                    str(ROOT / "examples" / "demo.sql"),
+                ],
+                cwd=ROOT,
+                capture_output=True,
+                text=True,
+                timeout=30,
+                check=False,
+            )
+            self.assertEqual(completed.returncode, 0, completed.stderr + completed.stdout)
+            self.assertIn("SeqScan", completed.stdout)
+            self.assertIn("IndexEqScan", completed.stdout)
+            reopened = self.StorageEngine(str(db_dir))
+            try:
+                result = self.run_sql(reopened, "SELECT id, name, score FROM students")
+                self.assertEqual(result.rows, [(2, "Bob", 60)])
+            finally:
+                reopened.close()
+
 
 if __name__ == "__main__":
     unittest.main()

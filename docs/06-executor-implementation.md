@@ -24,6 +24,8 @@ python -m unittest discover -s tests -v
 
 截至 C 模块独立开发阶段，执行器的 7 个单元测试通过；2 个集成测试已写好，因 A 的 `StorageEngine` 与 B 的 `parse`、`plan`、CLI 尚未接入而跳过。集成测试覆盖索引前后同结果、重复键、索引列更新、删除、关闭重开，以及 CLI 错误后继续执行。三方合并后应重新运行，要求不再出现跳过项。
 
+三方合并后的实际结果见 [07 集成测试记录](07-integration-test-report.md)：完整测试 123 个通过，0 跳过。
+
 接入完成后，用全新数据库目录运行：
 
 ```powershell
