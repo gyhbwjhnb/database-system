@@ -145,6 +145,11 @@ class StorageEngine:
         self._column_index(schema, column)  # validates the column
         return self._catalog.index_on_column(table, column)
 
+    def list_tables(self) -> tuple[str, ...]:
+        """Return the current table names for user interfaces."""
+        self._check_open()
+        return tuple(sorted(self._catalog.table_names()))
+
     # -- DDL --------------------------------------------------------------
 
     def create_table(self, schema: TableSchema) -> None:

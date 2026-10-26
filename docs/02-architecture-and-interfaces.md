@@ -7,12 +7,14 @@
 ```mermaid
 flowchart LR
     CLI[CLI / 脚本入口\n成员 B] --> Parser[解析与语义检查\n成员 B]
+    GUI[Tkinter 桌面界面\n集成扩展] --> Parser
     Parser --> Planner[查询规划\n成员 B]
     Planner --> Executor[执行引擎\n成员 C]
     Executor --> Storage[关系存储与索引\n成员 A]
     Storage --> Buffer[LRU 页缓存\n成员 A]
     Buffer --> Disk[页文件 / 元数据 / 索引文件]
     Executor --> CLI
+    Executor --> GUI
 ```
 
 成员 B 只产生计划，不直接读写数据库文件；成员 C 只通过存储接口访问行；成员 A 不解析 SQL。目录建议如下：
@@ -54,6 +56,7 @@ class StorageEngine:
     def __init__(self, db_dir: str, buffer_pages: int = 64): ...
     def get_schema(self, table: str) -> TableSchema: ...
     def has_index(self, table: str, column: str) -> bool: ...
+    def list_tables(self) -> tuple[str, ...]: ...
     def create_table(self, schema: TableSchema) -> None: ...
     def create_index(self, name: str, table: str, column: str) -> None: ...
     def insert(self, table: str, values: tuple[int | str, ...]) -> RID: ...
@@ -67,6 +70,8 @@ class StorageEngine:
 ```
 
 `StorageEngine` 实现 `dbms.contracts.StoragePort`（它也包含只读的 `CatalogPort`），其构造签名固定为 `StorageEngine(db_dir: str, buffer_pages: int = 64)`。`scan` 仅返回未删除行。`lookup_eq` 没有索引时抛 `SchemaError`，有索引时返回所有匹配的当前行；执行器仍复核谓词。`update` 的 `values` 是**整行的新值**，不是单列值。为了保持 RID 稳定，**MVP 规定更新后的编码记录不得超过原记录占用空间**，超过时抛 `StorageError`。若希望支持变长更新，三人须先明确 RID 迁移规则、同步修改接口并补充测试。`delete` 对已删除或不存在的 RID 抛 `StorageError`。`close` 调用 `flush`，可重复调用；关闭后的其他方法不得继续使用。
+
+图形界面扩展增加了只读的 `list_tables() -> tuple[str, ...]`，按表名排序返回当前数据库中的表，不暴露 catalog 文件或存储内部结构。原有 SQL 及存储行为不变。
 
 索引名称在同一数据库中全局唯一。`get_buffer_stats()` 返回当前计数的快照，不允许调用者修改内部计数器。`get_schema` 查不到表时抛 `SchemaError`；`has_index` 对不存在的表/列也抛 `SchemaError`，对存在但未建索引的列返回 `False`。
 

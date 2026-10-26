@@ -2,6 +2,7 @@ __pycache__/
 *.py[cod]
 .pytest_cache/
 demo_data/
+gui_data/
 *.heap
 *.idx
 catalog.json
