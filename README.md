@@ -1,6 +1,8 @@
-# 数据库管理系统课程大作业：三人协作设计
+# 数据库管理系统课程大作业
 
 这是一个已集成的教学用关系数据库管理系统。它实现 SQL 解析与计划、执行、磁盘页存储、LRU 缓存、持久化等值索引，以及命令行和可选的桌面图形界面。核心使用 Python 3.10+ 标准库，不依赖 SQLite 等现成数据库。
+
+**第一次使用请阅读[完整使用手册](docs/09-user-manual.md)**，其中包括安装、GUI/CLI 操作、SQL 语法、数据备份和常见错误。
 
 ## 快速开始
 
@@ -51,6 +53,7 @@ python -m unittest discover -s tests -v
 | [docs/06-executor-implementation.md](docs/06-executor-implementation.md) | 执行器实现与交接 |
 | [docs/07-integration-test-report.md](docs/07-integration-test-report.md) | 三模块集成测试记录 |
 | [docs/08-gui-guide.md](docs/08-gui-guide.md) | 桌面图形界面使用说明 |
+| [docs/09-user-manual.md](docs/09-user-manual.md) | 从零开始的完整使用手册 |
 | [dbms/types.py](dbms/types.py) | 已固定的 AST、Plan、行、结果和异常类型 |
 | [dbms/contracts.py](dbms/contracts.py) | 存储公开方法与前端/执行函数的类型签名 |
 | [CONTRIBUTING.md](CONTRIBUTING.md) | GitHub 目录分工、分支、上传与 PR 步骤 |

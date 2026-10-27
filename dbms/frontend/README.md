@@ -1,5 +1,7 @@
 # B 部分：SQL 前端与命令行
 
+本页保留 B 模块的实现说明与细节。面向使用者的统一入口是[完整使用手册](../../docs/09-user-manual.md)。
+
 本模块完成分工文档 B1—B6。仅依赖 Python 3.10+ 标准库，公开接口保持不变：
 
 ```python
@@ -80,8 +82,6 @@ python -m unittest discover -s tests/unit -p "test_frontend*.py" -v
 测试只使用模拟目录、模拟执行函数和临时脚本，验证 B 自己的输入/计划/输出与资源生命周期，不访问生产数据库。
 `tests/__init__.py` 与 `tests/unit/__init__.py` 使仓库规定的 unittest 发现命令能进入测试子目录。
 
-本次仓库基线中的 A、C 包仅有占位说明。因此 `--help` 和 B 单元测试可以独立运行；实际数据库 CLI 操作需要 A 导出 `StorageEngine`，C 导出 `execute`。
-缺少这两个导出时，CLI 会清楚报告依赖尚未实现。此交付不补写 A/C，也不声称磁盘持久化、索引维护或全系统集成已通过。
-真实 A/C 合入后的端到端与重启验证由 C 按 `docs/04-testing-and-delivery.md` 组织。
+当前仓库的 A 存储模块与 C 执行模块已经集成，CLI 可以实际建表、查询和修改磁盘数据。完整的端到端与重启测试见 `../../tests/integration/`；较早的模块测试记录只代表 B 独立开发阶段，不代表最终集成版本。
 
 实际测试环境、命令和结果见同目录 `TEST_REPORT.md`。
